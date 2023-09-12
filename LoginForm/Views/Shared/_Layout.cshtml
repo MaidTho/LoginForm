@@ -21,11 +21,29 @@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="OurServices">Our Services</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Image" asp-action="ImageIndex">Image Upload</a>
                         </li>
+
                     </ul>
+
+                    @* Dog or Cat Button *@
+                    <div class="btn-group">
+                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dogs or Cats?
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" id="dogSelect" href="#">Dog</a></li>
+                            <li><a class="dropdown-item" id="catSelect" href="#">Cat</a></li>
+                            <li><a class="dropdown-item" id="catDogSelect" href="#">Or Both</a></li>
+                        </ul>
+                    </div>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
@@ -37,9 +55,12 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted bg-white">
         <div class="container">
             &copy; 2023 - LoginForm - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <a asp-area="" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
+            <a asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
+            <a asp-area="" asp-controller="Home" asp-action="OurServices">Our Services</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

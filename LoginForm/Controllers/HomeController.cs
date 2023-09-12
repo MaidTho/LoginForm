@@ -17,10 +17,22 @@ namespace LoginForm.Controllers
         {
             return View();
         }
-
-        public IActionResult Privacy()
+        public IActionResult ContactUs()
         {
             return View();
+        }
+        public IActionResult AboutUs()
+        {
+            return View();
+        }
+        public IActionResult ImagedUpload()
+        {
+            return View();
+        }
+        public IActionResult OurServices()
+        {
+            return View();
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
