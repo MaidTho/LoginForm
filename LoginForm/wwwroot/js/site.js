@@ -7,8 +7,11 @@ const dogSelect = document.querySelector("#dogSelect");
 const catSelect = document.querySelector("#catSelect");
 const catDogSelect = document.querySelector("#catDogSelect");
 
+// Create cookie here
+
 dogSelect.addEventListener("click", () => {
     document.body.style.backgroundImage = "url('https://vitapet.com/media/kczlgn0r/dog-breed-temperaments-1240x640.jpg?anchor=center&mode=crop&width=1240&rnd=133155369200630000')"
+
 
 });
 catSelect.addEventListener("click", () => {
