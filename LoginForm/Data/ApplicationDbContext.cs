@@ -10,5 +10,6 @@ namespace LoginForm.Data
             : base(options)
         {
         }
+        public DbSet<PlayDate>? PlayDate { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using LoginForm.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoginForm.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231030042701_BigChanges")]
+    partial class BigChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,6 +122,7 @@ namespace LoginForm.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("PDTitle")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("PlayDateAccepted")
