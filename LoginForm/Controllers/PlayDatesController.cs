@@ -82,7 +82,7 @@ namespace LoginForm.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CreatorsName,PlaydateAccepted,Id,DateCreated,DateOfPlaydate")] PlayDateVM playdateVM)
         {
-            if (id != playdateVM.Id)
+            if (id != playdateVM.ID)
             {
                 return NotFound();
             }
@@ -96,7 +96,7 @@ namespace LoginForm.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await PlaydateRepository.Exists(playdateVM.Id))
+                    if (!await PlaydateRepository.Exists(playdateVM.ID))
                     {
                         return NotFound();
                     }

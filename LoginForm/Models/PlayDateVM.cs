@@ -4,14 +4,15 @@ namespace LoginForm.Models
 {
     public class PlayDateVM
     {
-        public int Id { get; set; }
-        [DisplayName(displayName: "name on invite")]
-        public string UserCreator { get; set; }
-        [DisplayName(displayName: "status")]
+        public int ID { get; set; }
+        [DisplayName(displayName: "Playdate title:")]
+        public string PDTitle { get; set; }
+        [DisplayName(displayName: "Current status:")]
         public Boolean? PlayDateAccepted { get; set; }
 
-        [DisplayName(displayName: "Playdate on ")]
+        [DisplayName(displayName: "Date:")]
         public DateTime DateForPlayDate { get; set; }
+
 
     }
 }

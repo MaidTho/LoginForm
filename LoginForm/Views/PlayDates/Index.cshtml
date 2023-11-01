@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>playdates </h1>
+<h1>Open Playdates</h1>
 
 <p>
     <a asp-action="Create" class="btn btn alert-success">Create New</a>
@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserCreator)
+                @Html.DisplayNameFor(model => model.PDTitle)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PlayDateAccepted)
@@ -28,7 +28,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.UserCreator)
+                @Html.DisplayFor(modelItem => item.PDTitle)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PlayDateAccepted)
@@ -37,20 +37,20 @@
                 @Html.DisplayFor(modelItem => item.DateForPlayDate)
             </td>
             <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary"><i class="fas fa-solid fa-pen"></i></a> |
-                    <a asp-action="Details" asp-route-id="@item.Id" class=" btn btn-secondary"><i class="fa-solid fa-calendar-day"></i></a> |
-              @*<a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>*@
-                    <button data-id="@item.Id" class="btn btn-danger deleteBtn" type="button"> <i class="fa-solid fa-trash"></i> </button>
+                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID" class=" btn btn-secondary">View</a> |
+                    @*<a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger">Delete</a> |*@
+                    <button data-id="@item.ID" class="btn btn-danger deleteBtn" type="button"> Delete </button>
             </td>
         </tr>
 }
     </tbody>
 </table>
 <form id="DeleteForm" asp-action="Delete">
-    <input type="hidden" id="PlaydateId" name="Id" />
+    <input type="hidden" id="PlayDateId" name="ID" />
 </form>
 
-@section Scripts{
+ @section Scripts{
     <script>
         $(function(){
             new DataTable('.table');
@@ -66,7 +66,7 @@
                         if (confirm) {
                             var btn = $(this);
                             var id = btn.data("id");
-                            $('#PlaydateId').val(id);
+                            $('#PlayDateId').val(id);
                             $('#DeleteForm').submit();
                         
                         }
