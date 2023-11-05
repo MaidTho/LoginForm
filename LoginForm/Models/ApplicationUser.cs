@@ -9,6 +9,10 @@ namespace LoginForm.Models
         public int Contactnumber { get; set; }
         public string Suburb { get; set; }
         public int Postcode { get; set; }
+        public String PetName { get; set; }
+        public String PetBreed { get; set; }
+        public int PetAge { get; set; }
+        public String PetGender { get; set; }
 
     }
 }

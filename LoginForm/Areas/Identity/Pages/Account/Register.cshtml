@@ -52,6 +52,32 @@
                 <label asp-for="Input.Postcode"></label>
                 <span asp-validation-for="Input.Postcode" class="text-danger"></span>
             </div>
+
+                        <div class="form-floating">
+                <input asp-for="Input.PetName" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.PetName"></label>
+                <span asp-validation-for="Input.PetName" class="text-danger"></span>
+            </div>
+
+                        <div class="form-floating">
+                <input asp-for="Input.PetBreed" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.PetBreed"></label>
+                <span asp-validation-for="Input.PetBreed" class="text-danger"></span>
+            </div>
+
+                        <div class="form-floating">
+                <input asp-for="Input.PetAge" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.PetAge"></label>
+                <span asp-validation-for="Input.PetAge" class="text-danger"></span>
+            </div>
+
+                        <div class="form-floating">
+                <input asp-for="Input.PetGender" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.PetGender"></label>
+                <span asp-validation-for="Input.PetGender" class="text-danger"></span>
+            </div>
+
+
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </form>
     </div>

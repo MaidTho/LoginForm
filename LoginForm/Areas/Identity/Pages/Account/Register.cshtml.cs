@@ -117,6 +117,18 @@ namespace LoginForm.Areas.Identity.Pages.Account
             
             [Display(Name = "Postcode")]
             public int Postcode { get; set; }
+
+            [Display(Name = "PetName")]
+            public string PetName { get; set; }
+
+            [Display(Name = "PetBreed")]
+            public string PetBreed { get; set; }
+
+            [Display(Name = "PetAge")]
+            public int PetAge { get; set; }
+
+            [Display(Name = "PetGender")]
+            public string PetGender { get; set; }
         }
 
 
@@ -139,6 +151,10 @@ namespace LoginForm.Areas.Identity.Pages.Account
                 user.Contactnumber = Input.Contactnumber;
                 user.Suburb = Input.Suburb;
                 user.Postcode = Input.Postcode;
+                user.PetName = Input.PetName;
+                user.PetBreed = Input.PetBreed;
+                user.PetAge = Input.PetAge;
+                user.PetGender = Input.PetGender;
 
                 await _userStore.SetUserNameAsync((ApplicationUser)user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync((ApplicationUser)user, Input.Email, CancellationToken.None);
