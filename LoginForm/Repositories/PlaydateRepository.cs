@@ -4,10 +4,11 @@ using LoginForm.Data;
 using LoginForm.Models;
 
 namespace LoginForm.Repositories { 
- public class PlaydateRepository : GenericRepository<PlayDate>, IPlaydateRepository
-  {
-    public PlaydateRepository(ApplicationDbContext context) : base(context)
+
+    public class PlaydateRepository : GenericRepository<PlayDate>, IPlaydateRepository
     {
+        public PlaydateRepository(ApplicationDbContext context) : base(context)
+        {
+        }
     }
-  }
 }
