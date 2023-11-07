@@ -9,6 +9,7 @@ using LoginForm.Data;
 using LoginForm.Models;
 using AutoMapper;
 using LoginForm.Contracts;
+using Microsoft.Data.SqlClient;
 
 namespace LoginForm.Controllers
 {
@@ -21,13 +22,49 @@ namespace LoginForm.Controllers
         {
             this.PlaydateRepository = PlayDateRepository;
             this.mapper = mapper;
+
+            // Start the recurring cleanup task on controller instantiation
+            StartTenMinuteCleanupTask();
+        }
+
+        private void StartTenMinuteCleanupTask()
+        {
+            // Set up a timer to execute the cleanup task every 10 minutes
+            var timer = new System.Threading.Timer(CleanupTask, null, TimeSpan.Zero, TimeSpan.FromMinutes(10));
+        }
+
+        private void CleanupTask(object state)
+        {
+            // Your SQL cleanup logic here
+            string connectionString = "Server=TOMSLAPTOP\\SQLEXPRESS;Database=PuppyDB;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;";
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // SQL query to delete older records
+                // CHANGE SECOND TO MINUTE, HOUR, DAY for result.
+                string sqlQuery = @"
+                    DELETE FROM [PuppyDB].[dbo].[PlayDate]
+                    WHERE DateCreated < DATEADD(MINUTE, -1, GETDATE())";
+
+                using (var command = new SqlCommand(sqlQuery, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
         // GET: Playdates
         public async Task<IActionResult> Index()
         {
             var PlayDates = mapper.Map<List<PlayDateVM>>(await PlaydateRepository.GetAllAsync());
+
+
             return View(PlayDates);
+
+
+
         }
 
         // GET: Playdates/Details/5
