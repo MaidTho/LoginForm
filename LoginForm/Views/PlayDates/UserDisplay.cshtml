@@ -1,0 +1,80 @@
+﻿@model IEnumerable<ApplicationUserVM>
+
+@{
+    ViewData["Title"] = "UserDisplay";
+}
+
+<h1>Open Playdates</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn alert-success">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PetName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PetBreed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Surname)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                    @Html.DisplayFor(modelItem => item.PetName)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.PetBreed)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                    
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<form id="DeleteForm" asp-action="Delete">
+    <input type="hidden" id="PlayDateId" name="ID" />
+</form>
+
+ @section Scripts{
+    <script>
+        $(function(){
+            new DataTable('.table');
+        
+            $('.deleteBtn').click(function(e) { 
+                swal({
+                    title:"are you sure?",
+                    text: "are you sure want to delete this ?",
+                    icon: "warning",
+                    buttons: true,
+                    dangermode:true 
+                }).then((confirm) => {
+                        if (confirm) {
+                            var btn = $(this);
+                            var id = btn.data("id");
+                            $('#PlayDateId').val(id);
+                            $('#DeleteForm').submit();
+                        
+                        }
+                    });
+            });
+        });
+    </script>
+}
