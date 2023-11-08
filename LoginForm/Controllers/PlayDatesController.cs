@@ -24,7 +24,7 @@ namespace LoginForm.Controllers
             this.mapper = mapper;
 
             // Start the recurring cleanup task on controller instantiation
-            StartCleanupTask();
+            //StartCleanupTask();
         }
 
         private void StartCleanupTask()
