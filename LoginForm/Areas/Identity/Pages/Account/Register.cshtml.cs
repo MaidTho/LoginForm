@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using LoginForm.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -19,6 +20,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using System.Net.Http;
+using System.Text.Json;
+using System.Web;
 
 namespace LoginForm.Areas.Identity.Pages.Account
 {
@@ -114,7 +118,7 @@ namespace LoginForm.Areas.Identity.Pages.Account
             
             [Display(Name = "Suburb")]
             public string Suburb { get; set; }
-            
+
             [Display(Name = "Postcode")]
             public int Postcode { get; set; }
 
@@ -160,7 +164,42 @@ namespace LoginForm.Areas.Identity.Pages.Account
                 await _emailStore.SetEmailAsync((ApplicationUser)user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync((ApplicationUser)user, Input.Password);
 
-                if (result.Succeeded)
+                var addressQuery = $"{Input.Suburb}, {Input.Postcode}"; // Example query combining suburb and postcode
+                var formattedAddressQuery = HttpUtility.UrlEncode(addressQuery);
+
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("https://nominatim.openstreetmap.org");
+                    var response = await client.GetAsync($"/search?format=json&q={formattedAddressQuery}&limit=1");
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        var addresses = JsonSerializer.Deserialize<dynamic[]>(content);
+
+                        if (addresses.Length > 0)
+                        {
+                            var firstAddress = addresses[0];
+                            var addressDetails = firstAddress["display_name"];
+                            // Process retrieved address details as needed
+
+                            // For instance, you might want to assign the address details to the user object:
+                            user.AddressDetails = addressDetails.ToString();
+                        }
+                    }
+                    else
+                    {
+                        // Handle API call failure
+                        // Log the error or handle it in your application
+                    }
+                }
+
+                await _userStore.SetUserNameAsync((ApplicationUser)user, Input.Email, CancellationToken.None);
+                await _emailStore.SetEmailAsync((ApplicationUser)user, Input.Email, CancellationToken.None);
+                var createResult = await _userManager.CreateAsync((ApplicationUser)user, Input.Password);
+
+
+                if (createResult.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 

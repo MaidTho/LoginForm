@@ -13,6 +13,8 @@ namespace LoginForm.Models
         public String PetBreed { get; set; }
         public int PetAge { get; set; }
         public String PetGender { get; set; }
+        public string AddressDetails { get; set; } // New property for address details
+
 
     }
 }
