@@ -24,19 +24,19 @@ namespace LoginForm.Controllers
             this.mapper = mapper;
 
             // Start the recurring cleanup task on controller instantiation
-            StartTenMinuteCleanupTask();
+            //StartTenMinuteCleanupTask();
         }
-
+        
         private void StartTenMinuteCleanupTask()
         {
             // Set up a timer to execute the cleanup task every 10 minutes
-            var timer = new System.Threading.Timer(CleanupTask, null, TimeSpan.Zero, TimeSpan.FromMinutes(10));
-        }
+           var timer = new System.Threading.Timer(CleanupTask, null, TimeSpan.Zero, TimeSpan.FromMinutes(10));
+       }
 
         private void CleanupTask(object state)
         {
             // Your SQL cleanup logic here
-            string connectionString = "Server=TOMSLAPTOP\\SQLEXPRESS;Database=PuppyDB;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;";
+            string connectionString = "Server=ZAKSLAPTOP\\SQLEXPRESS;Database=PlayDatesDB2;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;";
 
             using (var connection = new SqlConnection(connectionString))
             {
@@ -45,7 +45,7 @@ namespace LoginForm.Controllers
                 // SQL query to delete older records
                 // CHANGE SECOND TO MINUTE, HOUR, DAY for result.
                 string sqlQuery = @"
-                    DELETE FROM [PuppyDB].[dbo].[PlayDate]
+                    DELETE FROM [PlayDatesDB2].[dbo].[PlayDate]
                     WHERE DateCreated < DATEADD(MINUTE, -1, GETDATE())";
 
                 using (var command = new SqlCommand(sqlQuery, connection))
@@ -102,9 +102,9 @@ namespace LoginForm.Controllers
         }
 
         // GET: Playdates/Edit/5
-        public async Task<IActionResult> Edit(int? ID)
+        public async Task<IActionResult> Edit(int? Id)
         {
-            var playdate = await PlaydateRepository.GetAsync(ID);
+            var playdate = await PlaydateRepository.GetAsync(Id);
             if (playdate == null)
             {
                 return NotFound();
@@ -119,9 +119,9 @@ namespace LoginForm.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserCreator,PlayDateAccepted,ID,PDTitle,DateCreated,DateForPlaydate")] PlayDateVM playDateVM)
+        public async Task<IActionResult> Edit(int id, PlayDateVM playDateVM)
         {
-            if (id != playDateVM.ID)
+            if (id != playDateVM.Id)
             {
                 return NotFound();
             }
@@ -138,11 +138,11 @@ namespace LoginForm.Controllers
                 try
                 {
                     mapper.Map(playDateVM, playDate);
-                    await PlaydateRepository.AddAsync(playDate);
+                    await PlaydateRepository.UpdateAsync(playDate);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await PlaydateRepository.Exists(playDateVM.ID))
+                    if (!await PlaydateRepository.Exists(playDateVM.Id))
                     {
                         return NotFound();
                     }

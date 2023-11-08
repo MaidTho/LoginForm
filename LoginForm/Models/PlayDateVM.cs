@@ -4,7 +4,7 @@ namespace LoginForm.Models
 {
     public class PlayDateVM
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         [DisplayName(displayName: "Playdate title:")]
         public string PDTitle { get; set; }
         [DisplayName(displayName: "Current status:")]
