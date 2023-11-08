@@ -97,7 +97,9 @@ namespace LoginForm.Controllers
             if (ModelState.IsValid)
             {
                 var PlayDate = mapper.Map<PlayDate>(playDateVM);
-                PlayDate.DateForPlayDate = DateTime.Now; // Set the booking date
+                PlayDate.DateCreated = DateTime.Now; // Set the creation date/time
+
+                PlayDate.DateForPlayDate = playDateVM.DateForPlayDate; // Assuming this is the desired DateForPlayDate property
 
                 await PlaydateRepository.AddAsync(PlayDate);
                 return RedirectToAction(nameof(Index));
