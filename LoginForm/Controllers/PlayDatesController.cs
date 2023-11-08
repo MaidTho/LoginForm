@@ -24,7 +24,7 @@ namespace LoginForm.Controllers
             this.mapper = mapper;
 
             // Start the recurring cleanup task on controller instantiation
-            //StartCleanupTask();
+            StartCleanupTask();
         }
 
         private void StartCleanupTask()
@@ -36,7 +36,7 @@ namespace LoginForm.Controllers
         private void CleanupTask(object state)
         {
             // Your SQL cleanup logic here
-            string connectionString = "Server=ZAKSLAPTOP\\SQLEXPRESS;Database=PlayDatesDB2;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;";
+            string connectionString = "Server=TOMSLAPTOP\\SQLEXPRESS;Database=PlayDatesDB2;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;";
 
             using (var connection = new SqlConnection(connectionString))
             {
@@ -45,8 +45,8 @@ namespace LoginForm.Controllers
                 // SQL query to delete older records
 
                 string sqlQuery = @"
-                    DELETE FROM [PuppyDB].[dbo].[PlayDate]
-                    WHERE DateCreated < DATEADD(DAY, -7, GETDATE())";                // <--- CHANGE SECOND TO MINUTE, HOUR, DAY for result.
+                    DELETE FROM [PlayDatesDB2].[dbo].[PlayDate]
+                    WHERE DateForPlayDate < DATEADD(MINUTE, -1, GETDATE())";                // <--- CHANGE SECOND TO MINUTE, HOUR, DAY for result.
 
                 using (var command = new SqlCommand(sqlQuery, connection))
                 {
@@ -90,16 +90,31 @@ namespace LoginForm.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+
+
         public async Task<IActionResult> Create(PlayDateVM playDateVM)
         {
             if (ModelState.IsValid)
             {
                 var PlayDate = mapper.Map<PlayDate>(playDateVM);
+                PlayDate.DateForPlayDate = DateTime.Now; // Set the booking date
+
                 await PlaydateRepository.AddAsync(PlayDate);
                 return RedirectToAction(nameof(Index));
             }
             return View(playDateVM);
         }
+
+ //       public async Task<IActionResult> Create(PlayDateVM playDateVM)
+ //       {
+ //           if (ModelState.IsValid)
+ //           {
+ //               var PlayDate = mapper.Map<PlayDate>(playDateVM);
+ //              await PlaydateRepository.AddAsync(PlayDate);
+ //               return RedirectToAction(nameof(Index));
+ //          }
+ //          return View(playDateVM);
+ //      }
 
         // GET: Playdates/Edit/5
         public async Task<IActionResult> Edit(int? Id)
