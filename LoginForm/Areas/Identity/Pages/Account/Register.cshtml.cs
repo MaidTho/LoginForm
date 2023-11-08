@@ -150,7 +150,7 @@ namespace LoginForm.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                user.FirstName = Input.FirstName; 
+                user.FirstName = Input.FirstName;
                 user.Surname = Input.Surname;
                 user.Contactnumber = Input.Contactnumber;
                 user.Suburb = Input.Suburb;
@@ -164,42 +164,7 @@ namespace LoginForm.Areas.Identity.Pages.Account
                 await _emailStore.SetEmailAsync((ApplicationUser)user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync((ApplicationUser)user, Input.Password);
 
-                var addressQuery = $"{Input.Suburb}, {Input.Postcode}"; // Example query combining suburb and postcode
-                var formattedAddressQuery = HttpUtility.UrlEncode(addressQuery);
-
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri("https://nominatim.openstreetmap.org");
-                    var response = await client.GetAsync($"/search?format=json&q={formattedAddressQuery}&limit=1");
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var content = await response.Content.ReadAsStringAsync();
-                        var addresses = JsonSerializer.Deserialize<dynamic[]>(content);
-
-                        if (addresses.Length > 0)
-                        {
-                            var firstAddress = addresses[0];
-                            var addressDetails = firstAddress["display_name"];
-                            // Process retrieved address details as needed
-
-                            // For instance, you might want to assign the address details to the user object:
-                            user.AddressDetails = addressDetails.ToString();
-                        }
-                    }
-                    else
-                    {
-                        // Handle API call failure
-                        // Log the error or handle it in your application
-                    }
-                }
-
-                await _userStore.SetUserNameAsync((ApplicationUser)user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync((ApplicationUser)user, Input.Email, CancellationToken.None);
-                var createResult = await _userManager.CreateAsync((ApplicationUser)user, Input.Password);
-
-
-                if (createResult.Succeeded)
+                if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
