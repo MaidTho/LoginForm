@@ -10,6 +10,7 @@ using LoginForm.Models;
 using AutoMapper;
 using LoginForm.Contracts;
 using Microsoft.Data.SqlClient;
+using NuGet.Protocol.Core.Types;
 
 namespace LoginForm.Controllers
 {
@@ -60,10 +61,7 @@ namespace LoginForm.Controllers
         {
             var PlayDates = mapper.Map<List<PlayDateVM>>(await PlaydateRepository.GetAllAsync());
 
-
             return View(PlayDates);
-
-
 
         }
 
@@ -77,6 +75,7 @@ namespace LoginForm.Controllers
             }
             var playDateVM = mapper.Map<PlayDateVM>(PlayDate);
             return View(playDateVM);
+
         }
 
         // GET: Playdates/Create
