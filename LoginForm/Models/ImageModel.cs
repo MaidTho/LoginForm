@@ -7,6 +7,6 @@ namespace LoginForm.Models
     {
         // public string? UserImgUrl { get; set; }
         [Display(Name = "Upload an image of your pet")]
-        public IFormFile UserImg { get; set; }
+        public IFormFile? UserImg { get; set; }
     }
 }
