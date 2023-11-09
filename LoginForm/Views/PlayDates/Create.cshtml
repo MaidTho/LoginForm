@@ -1,0 +1,45 @@
+﻿@model LoginForm.Models.PlayDate
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Playdate</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PDTitle" class="control-label"><a>Title</a></label>
+                <input asp-for="PDTitle" class="form-control" />
+                <span asp-validation-for="PDTitle" class="text-danger"></span>
+            </div>
+            @*
+                <div class="form-group">
+                <label asp-for="PlayDateAccepted" class="control-label"></label>
+                <input type="submit" asp-for="PlayDateAccepted" value="accept" class="btn btn-success" />
+                <input type="submit" asp-for="PlayDateAccepted" value="deny"class="btn btn-danger" />
+                <span asp-validation-for="PlayDateAccepted" class="text-danger"></span>
+            </div>
+            *@
+            <div class="form-group">
+                <label asp-for="DateForPlayDate" class="control-label"><a>Date of the Playdate</a></label>
+                <input asp-for="DateForPlayDate" class="form-control" />
+                <span asp-validation-for="DateForPlayDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class=" btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    
+</div>
+

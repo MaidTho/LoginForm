@@ -13,6 +13,21 @@
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating">
+                <input asp-for="Input.FirstName" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.FirstName"></label>
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.Surname" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.Surname"></label>
+                <span asp-validation-for="Input.Surname" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.Contactnumber" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.Contactnumber"></label>
+                <span asp-validation-for="Input.Contactnumber" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
                 <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
                 <label asp-for="Input.Email"></label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
@@ -27,6 +42,42 @@
                 <label asp-for="Input.ConfirmPassword"></label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
+            <div class="form-floating">
+                <input asp-for="Input.Suburb" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.Suburb"></label>
+                <span asp-validation-for="Input.Suburb" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.Postcode" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.Postcode"></label>
+                <span asp-validation-for="Input.Postcode" class="text-danger"></span>
+            </div>
+
+                        <div class="form-floating">
+                <input asp-for="Input.PetName" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.PetName"></label>
+                <span asp-validation-for="Input.PetName" class="text-danger"></span>
+            </div>
+
+                        <div class="form-floating">
+                <input asp-for="Input.PetBreed" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.PetBreed"></label>
+                <span asp-validation-for="Input.PetBreed" class="text-danger"></span>
+            </div>
+
+                        <div class="form-floating">
+                <input asp-for="Input.PetAge" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.PetAge"></label>
+                <span asp-validation-for="Input.PetAge" class="text-danger"></span>
+            </div>
+
+                        <div class="form-floating">
+                <input asp-for="Input.PetGender" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.PetGender"></label>
+                <span asp-validation-for="Input.PetGender" class="text-danger"></span>
+            </div>
+
+
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </form>
     </div>
