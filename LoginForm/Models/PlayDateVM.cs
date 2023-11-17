@@ -12,6 +12,8 @@ namespace LoginForm.Models
 
         [DisplayName(displayName: "Date:")]
         public DateTime DateForPlayDate { get; set; }
+        [DisplayName(displayName: "Date:")]
+        public DateTime DateCreated { get; set; }
 
 
     }

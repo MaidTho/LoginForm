@@ -75,8 +75,8 @@ namespace LoginForm.Controllers
             {
                 return NotFound();
             }
-            var PlayDateVM = mapper.Map<PlayDateVM>(PlayDate);
-            return View(PlayDate);
+            var playDateVM = mapper.Map<PlayDateVM>(PlayDate);
+            return View(playDateVM);
         }
 
         // GET: Playdates/Create
@@ -90,15 +90,15 @@ namespace LoginForm.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(PlayDateVM playdateVM)
+        public async Task<IActionResult> Create(PlayDateVM playDateVM)
         {
             if (ModelState.IsValid)
             {
-                var PlayDate = mapper.Map<PlayDate>(playdateVM);
+                var PlayDate = mapper.Map<PlayDate>(playDateVM);
                 await PlaydateRepository.AddAsync(PlayDate);
                 return RedirectToAction(nameof(Index));
             }
-            return View(playdateVM);
+            return View(playDateVM);
         }
 
         // GET: Playdates/Edit/5
@@ -109,7 +109,9 @@ namespace LoginForm.Controllers
             {
                 return NotFound();
             }
-            return View(playdate);
+            
+            var playDateVM = mapper.Map<PlayDateVM>(playdate);
+            return View(playDateVM);
         }
 
         // POST: Playdates/Edit/5
@@ -117,9 +119,16 @@ namespace LoginForm.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CreatorsName,PlaydateAccepted,Id,DateCreated,DateOfPlaydate")] PlayDateVM playdateVM)
+        public async Task<IActionResult> Edit(int id, [Bind("UserCreator,PlayDateAccepted,ID,PDTitle,DateCreated,DateForPlaydate")] PlayDateVM playDateVM)
         {
-            if (id != playdateVM.ID)
+            if (id != playDateVM.ID)
+            {
+                return NotFound();
+            }
+
+            var playDate = await PlaydateRepository.GetAsync(id);
+
+            if (playDate == null)
             {
                 return NotFound();
             }
@@ -128,12 +137,12 @@ namespace LoginForm.Controllers
             {
                 try
                 {
-                    var PlayDate = mapper.Map<PlayDate>(playdateVM);
-                    await PlaydateRepository.AddAsync(PlayDate);
+                    mapper.Map(playDateVM, playDate);
+                    await PlaydateRepository.AddAsync(playDate);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await PlaydateRepository.Exists(playdateVM.ID))
+                    if (!await PlaydateRepository.Exists(playDateVM.ID))
                     {
                         return NotFound();
                     }
@@ -144,7 +153,7 @@ namespace LoginForm.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(playdateVM);
+            return View(playDateVM);
         }
         //Post:Platdates/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -159,5 +168,15 @@ namespace LoginForm.Controllers
         // {
         //    return (_context.Playdates?.Any(e => e.Id == id)).GetValueOrDefault();
         // }
-    }
+
+        public async Task<IActionResult> UserDisplay(int? Id)
+        
+            {
+                var PetUser = mapper.Map<List<ApplicationUserVM>>(await PlaydateRepository.GetAllAsync());
+                return View(PetUser);
+            }
+        
+       
+
+}
 }

@@ -9,6 +9,7 @@ namespace LoginForm.Configurations
         public MapperConfig()
         {
             CreateMap<PlayDate, PlayDateVM>().ReverseMap();
+            CreateMap<ApplicationUser, ApplicationUserVM>().ReverseMap();
         }
 
     }
