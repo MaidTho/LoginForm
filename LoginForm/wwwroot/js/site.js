@@ -39,6 +39,8 @@ function applyUserSelection() {
         document.body.style.backgroundImage = "url('https://images.contentful.com/e43mbx7oxv8s/dTeQVZbR72uiYkEAYKyUS/bd3825a93aace2c7b368a7a742b1000f/000122_ZV_SCSW_HeroImages_1900x1024_D1.jpg')";
     } else if (userSelection === 'dog_cat') {
         document.body.style.backgroundImage = "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiWcfKeoPHOOsNUI8u4xbqB6_k4OKRRCkSWA&usqp=CAU')";
+    } else if (userSelection === 'plain') {
+        document.body.style.backgroundImage = "url('https://i.pinimg.com/originals/b7/80/80/b78080b4fc1da5331dabf8113087b6e1.jpg')";
     }
 }
 
@@ -59,6 +61,11 @@ dogSelect.addEventListener("click", () => {
 catSelect.addEventListener("click", () => {
     document.body.style.backgroundImage = "url('https://images.contentful.com/e43mbx7oxv8s/dTeQVZbR72uiYkEAYKyUS/bd3825a93aace2c7b368a7a742b1000f/000122_ZV_SCSW_HeroImages_1900x1024_D1.jpg')";
     setCookie('userSelection', 'cat', 30);
+});
+
+defaultSelect.addEventListener("click", () => {
+    document.body.style.backgroundImage = "url('https://i.pinimg.com/originals/b7/80/80/b78080b4fc1da5331dabf8113087b6e1.jpg')";
+    setCookie('userSelection', 'plain', 30);
 });
 
 

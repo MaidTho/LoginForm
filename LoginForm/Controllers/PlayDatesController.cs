@@ -37,7 +37,7 @@ namespace LoginForm.Controllers
         private void CleanupTask(object state)
         {
             // Your SQL cleanup logic here
-            string connectionString = "Server=TOMSLAPTOP\\SQLEXPRESS;Database=PlayDatesDB2;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;";
+            string connectionString = "Server=DESKTOP-2UIRCBH\\SQLEXPRESS;Database=PlayDatesDB2;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;";
 
             using (var connection = new SqlConnection(connectionString))
             {
