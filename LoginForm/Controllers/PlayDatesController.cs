@@ -24,10 +24,10 @@ namespace LoginForm.Controllers
             this.mapper = mapper;
 
             // Start the recurring cleanup task on controller instantiation
-            StartTenMinuteCleanupTask();
+            StartCleanupTask();
         }
 
-        private void StartTenMinuteCleanupTask()
+        private void StartCleanupTask()
         {
             // Set up a timer to execute the cleanup task every 10 minutes
             var timer = new System.Threading.Timer(CleanupTask, null, TimeSpan.Zero, TimeSpan.FromMinutes(10));
@@ -43,10 +43,10 @@ namespace LoginForm.Controllers
                 connection.Open();
 
                 // SQL query to delete older records
-                // CHANGE SECOND TO MINUTE, HOUR, DAY for result.
+
                 string sqlQuery = @"
                     DELETE FROM [PuppyDB].[dbo].[PlayDate]
-                    WHERE DateCreated < DATEADD(MINUTE, -1, GETDATE())";
+                    WHERE DateCreated < DATEADD(DAY, -7, GETDATE())";                // <--- CHANGE SECOND TO MINUTE, HOUR, DAY for result.
 
                 using (var command = new SqlCommand(sqlQuery, connection))
                 {
