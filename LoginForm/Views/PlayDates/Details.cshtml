@@ -10,42 +10,61 @@
 <div>
     <h4>Playdate</h4>
     <hr />
+
+    @* Class for PlayDate Name *@
     <dl class="row">
         <dt class = "col-sm-2">
             @*@Html.DisplayNameFor(model => model.PDTitle)*@
             <a>Name of the playdate</a>
         </dt>
+    @* DB Name for PlayDate Name *@ 
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.PDTitle)
         </dd>
-        <dt class = "col-sm-2">
-            @*@Html.DisplayNameFor(model => model.PlayDateAccepted)*@
-            <a>Is invite Accepted?</a>
-        </dt>
-        <dd class = "col-sm-10">
+
+
+
+@*   <input type="submit" value="Save" class="btn btn-primary" />
+        </form>
+</div>*@
+
+
+
+        @* <dd class = "col-sm-10">*@
             @*@Html.DisplayFor(model => model.PlayDateAccepted)*@
-
 			@*Check Box Functionality here*@
+            @*@Html.CheckBoxFor(model => model.PlayDateAccepted)*@
 
-           @* @Html.CheckBoxFor(model => model.PlayDateAccepted)*@
+            @*<input type="checkbox" name="my-checkbox" checked>*@
 
-            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-            <label for="vehicle1"> I have a bike</label><br>
-        </dd>
+            @*<input type="checkbox" id="vehicle1" name="vehicle1" value="PlayDateAccepted">
+            @Html.DisplayFor(model => model.PlayDateAccepted)
+            <label for="vehicle1"> Yes </label><br> *@
+       @* </dd>*@
+
+
+
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.DateCreated)
             <a>Date Created</a>
         </dt>
 
 
+
+
         <dd class = "col-sm-10">
            @Html.DisplayFor(model => model.DateCreated)
         </dd>
+
+
 
         <dt class = "col-sm-2">
             @*@Html.DisplayNameFor(model => model.DateForPlayDate)*@
             <a>Date of the playdate</a>
         </dt>
+
+
+
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DateForPlayDate)
         </dd>
