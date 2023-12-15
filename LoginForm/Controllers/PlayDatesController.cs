@@ -25,7 +25,7 @@ namespace LoginForm.Controllers
             this.mapper = mapper;
 
             // Start the recurring cleanup task on controller instantiation
-            StartCleanupTask();
+ //           StartCleanupTask();
         }
 
         private void StartCleanupTask()
@@ -47,7 +47,7 @@ namespace LoginForm.Controllers
 
                 string sqlQuery = @"
                     DELETE FROM [PlayDatesDB2].[dbo].[PlayDate]
-                    WHERE DateForPlayDate < DATEADD(MINUTE, -1, GETDATE())";                // <--- CHANGE SECOND TO MINUTE, HOUR, DAY for result.
+                    WHERE DateForPlayDate < DATEADD(DAY, -7, GETDATE())";                // <--- CHANGE SECOND TO MINUTE, HOUR, DAY for result.
 
                 using (var command = new SqlCommand(sqlQuery, connection))
                 {
@@ -77,6 +77,37 @@ namespace LoginForm.Controllers
             return View(playDateVM);
 
         }
+
+
+        // SECTION FOR CHECKBOX GOING INTO DB
+
+        [HttpPost]
+        public async Task<IActionResult> UpdatePlayDateAccepted(PlayDateVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var playDate = await PlaydateRepository.GetAsync(model.Id);
+                if (playDate == null)
+                {
+                    return NotFound();
+                }
+
+                // Update the PlayDateAccepted property
+                playDate.PlayDateAccepted = model.PlayDateAccepted;
+
+                // Save changes to the database
+                await PlaydateRepository.UpdateAsync(playDate);
+
+                return RedirectToAction("Details", new { Id = model.Id });
+            }
+
+            // If ModelState is not valid, return to the Details view with the model
+            return View("Details", model);
+        }
+
+
+
+
 
         // GET: Playdates/Create
         public IActionResult Create()
