@@ -31,7 +31,7 @@ namespace LoginForm.Controllers
         private void StartCleanupTask()
         {
             // Set up a timer to execute the cleanup task every 10 minutes
-           var timer = new System.Threading.Timer(CleanupTask, null, TimeSpan.Zero, TimeSpan.FromMinutes(10));
+           var timer = new System.Threading.Timer(CleanupTask, null, TimeSpan.Zero, TimeSpan.FromDays(7));
        }
 
         private void CleanupTask(object state)
